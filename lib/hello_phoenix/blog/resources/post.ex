@@ -1,6 +1,19 @@
 defmodule HelloPhoenix.Blog.Post do
   use Ash.Resource,
-    data_layer: AshPostgres.DataLayer
+    data_layer: AshPostgres.DataLayer,
+    extensions: [AshJsonApi.Resource]
+
+  json_api do
+    type "post"
+
+    routes do
+      base "/posts"
+
+      get :read
+      index :read
+      post :create
+    end
+  end
 
   postgres do
     table "posts"

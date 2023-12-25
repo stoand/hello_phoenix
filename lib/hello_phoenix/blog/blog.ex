@@ -1,5 +1,6 @@
 defmodule HelloPhoenix.Blog do
-  use Ash.Api
+  use Ash.Api,
+    extensions: [AshJsonApi.Api]
 
   resources do
     resource HelloPhoenix.Blog.Post

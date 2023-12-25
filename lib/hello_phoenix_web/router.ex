@@ -8,4 +8,10 @@ defmodule HelloPhoenixWeb.Router do
   scope "/api", HelloPhoenixWeb do
     pipe_through :api
   end
+
+  scope "/custom" do
+    pipe_through :api
+
+    forward "/blog", HelloPhoenix.Blog.Router    
+  end
 end

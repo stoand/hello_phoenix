@@ -44,6 +44,7 @@ defmodule HelloPhoenix.MixProject do
       {:ash, "~> 2.17.17"},
       {:ash_postgres, "~> 1.3.65"},
       {:ash_phoenix, "~> 1.2.24"},
+      {:ash_json_api, "~> 0.34.1"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
   end
