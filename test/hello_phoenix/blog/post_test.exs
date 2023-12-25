@@ -13,4 +13,12 @@ defmodule HelloPhoenix.Blog.PostTest do
 
     assert loaded_post.title == "hello"
   end
+
+  test "title cannot be asdf", %{conn: conn} do
+    HelloPhoenix.Blog.Post.create(%{title: "hello", content: "asdf"})
+    HelloPhoenix.Blog.Post.create(%{title: "asdf", content: "asdf"})
+
+    conn = get(conn, ~p"/posts")
+    assert json_response(conn, 200) |> Map.get("data") |> length() == 1
+  end
 end

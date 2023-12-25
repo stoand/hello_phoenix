@@ -4,7 +4,6 @@ defmodule HelloPhoenix.Blog.Post do
     extensions: [AshJsonApi.Resource],
     authorizers: [Ash.Policy.Authorizer]
 
-  require Ash.Query
   import Ash.Filter.TemplateHelpers
 
   json_api do
@@ -35,7 +34,7 @@ defmodule HelloPhoenix.Blog.Post do
 
   policies do
     policy action(:read) do
-      authorize_if expr(title == "asdf")
+      authorize_if expr(title != "asdf")
     end
 
     policy action(:create) do
