@@ -9,7 +9,8 @@ import Config
 
 config :hello_phoenix,
   ecto_repos: [HelloPhoenix.Repo],
-  generators: [timestamp_type: :utc_datetime]
+  generators: [timestamp_type: :utc_datetime],
+  ash_apis: [HelloPhoenix.Blog]
 
 # Configures the endpoint
 config :hello_phoenix, HelloPhoenixWeb.Endpoint,
