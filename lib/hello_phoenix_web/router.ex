@@ -5,13 +5,13 @@ defmodule HelloPhoenixWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", HelloPhoenixWeb do
-    pipe_through :api
-  end
+  # scope "/api", HelloPhoenixWeb do
+  #   pipe_through :api
+  # end
 
-  scope "/custom" do
+  scope "/" do
     pipe_through :api
 
-    forward "/blog", HelloPhoenix.Blog.Router    
+    forward "/", HelloPhoenix.Blog.Router
   end
 end
