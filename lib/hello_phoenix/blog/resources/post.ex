@@ -1,17 +1,21 @@
 defmodule HelloPhoenix.Blog.Post do
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
-    extensions: [AshJsonApi.Resource]
+    extensions: [AshJsonApi.Resource],
+    authorizers: [Ash.Policy.Authorizer]
+
+  require Ash.Query
+  import Ash.Filter.TemplateHelpers
 
   json_api do
     type "post"
 
     routes do
-      base "/posts"
+      base("/posts")
 
-      get :read
+      get(:read)
       index :read
-      post :create
+      post(:create)
     end
   end
 
@@ -27,6 +31,16 @@ defmodule HelloPhoenix.Blog.Post do
     define :update, action: :update
     define :destroy, action: :destroy
     define :get_by_id, args: [:id], action: :by_id
+  end
+
+  policies do
+    policy action(:read) do
+      authorize_if expr(title == "asdf")
+    end
+
+    policy action(:create) do
+      authorize_if always()
+    end
   end
 
   actions do
