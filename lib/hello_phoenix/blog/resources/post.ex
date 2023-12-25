@@ -9,7 +9,7 @@ defmodule HelloPhoenix.Blog.Post do
 
   code_interface do
     define_for HelloPhoenix.Blog
-    define :create, action: :create
+    define :create
     define :read_all, action: :read
     define :update, action: :update
     define :destroy, action: :destroy

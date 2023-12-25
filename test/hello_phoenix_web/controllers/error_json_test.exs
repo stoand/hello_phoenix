@@ -2,15 +2,12 @@ defmodule HelloPhoenixWeb.ErrorJSONTest do
   use HelloPhoenixWeb.ConnCase, async: true
 
   test "asdf" do
-    new_post = HelloPhoenix.Blog.Post.create!(%{title: "hello", content: "asdf"})
-      
+    {_, new_post} =
+      HelloPhoenix.Blog.Post.create(%{title: "hello", content: "asdf"})
+      |> IO.inspect()
 
-
-    HelloPhoenix.Blog.Post
-    |> Ash.Query.for_read(:by_id, %{id: new_post.id})
-    |> HelloPhoenix.Blog.read!()
+    HelloPhoenix.Blog.Post.get_by_id!(new_post.id)
     |> IO.inspect()
-    
   end
 
   test "renders 404" do
