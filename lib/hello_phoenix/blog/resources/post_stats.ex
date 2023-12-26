@@ -12,7 +12,8 @@ defmodule HelloPhoenix.Blog.PostStats do
     routes do
       base "/post_stats"
 
-      index :read, default_fields: [:id]
+      # index :read, default_fields: [:id]
+      index :read, default_fields: [:id, :post_count_with_content]
       post :create
     end
   end
@@ -45,12 +46,13 @@ defmodule HelloPhoenix.Blog.PostStats do
   relationships do
     has_many :posts, HelloPhoenix.Blog.Post do
       # no_attributes? true
+      destination_attribute :post_stats_id2 
     end
   end
   
 
   aggregates do
-    count :post_count_with_content, :posts
+     count :post_count_with_content, :posts
     # do
     #   filter expr(content != nil)
     # end

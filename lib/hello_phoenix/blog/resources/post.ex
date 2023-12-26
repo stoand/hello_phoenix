@@ -73,6 +73,8 @@ defmodule HelloPhoenix.Blog.Post do
     # can be nil
     attribute :content, :string
 
-    attribute :post_stats_id, :uuid
+    # attribute :post_stats_id, :uuid
+
+    attribute :post_stats_id2, :uuid
   end
 end

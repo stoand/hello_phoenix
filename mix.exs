@@ -41,7 +41,7 @@ defmodule HelloPhoenix.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
-      {:ash, "~> 2.17.17"},
+      {:ash, "~> 2.17.14"},
       {:ash_postgres, "~> 1.3.65"},
       {:ash_phoenix, "~> 1.2.24"},
       {:ash_json_api, "~> 0.34.1"},
