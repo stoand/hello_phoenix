@@ -4,5 +4,6 @@ defmodule HelloPhoenix.Blog do
 
   resources do
     resource HelloPhoenix.Blog.Post
+    resource HelloPhoenix.Blog.PostStats
   end
 end

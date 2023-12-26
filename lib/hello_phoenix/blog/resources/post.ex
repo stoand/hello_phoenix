@@ -10,11 +10,11 @@ defmodule HelloPhoenix.Blog.Post do
     type "post"
 
     routes do
-      base("/posts")
+      base "/posts" 
 
-      get(:read)
+      get :read 
       index :read
-      post(:create)
+      post :create
     end
   end
 
