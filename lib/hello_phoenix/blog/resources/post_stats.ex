@@ -1,23 +1,41 @@
 defmodule HelloPhoenix.Blog.PostStats do
   use Ash.Resource,
-    # data_layer: AshPostgres.DataLayer,
+    data_layer: AshPostgres.DataLayer,
     extensions: [AshJsonApi.Resource],
     authorizers: [Ash.Policy.Authorizer]
 
+  import Ash.Filter.TemplateHelpers
+
   json_api do
-    type "post_stats"
+    type "post_stat"
 
     routes do
-      base "/posts_stats" 
+      base "/post_stats"
 
-      get :read 
-      index :read
+      index :read, default_fields: [:id]
       post :create
     end
   end
 
+  policies do
+    policy always() do
+      authorize_if always()
+    end
+  end
+
+  postgres do
+    table "post_stats"
+    repo HelloPhoenix.Repo
+  end
+
+  code_interface do
+    define_for HelloPhoenix.Blog
+    define :create
+    define :read, get?: true
+  end
+  
   actions do
-    defaults [:read]
+    defaults [:read, :create]
   end
 
   attributes do
@@ -26,14 +44,15 @@ defmodule HelloPhoenix.Blog.PostStats do
 
   relationships do
     has_many :posts, HelloPhoenix.Blog.Post do
-      no_attributes? true
+      # no_attributes? true
     end
   end
   
+
   aggregates do
-    count :post_count_with_content, :posts do
-      filter expr(content != nil)
-    end
+    count :post_count_with_content, :posts
+    # do
+    #   filter expr(content != nil)
+    # end
   end
 end
-

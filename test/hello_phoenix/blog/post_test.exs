@@ -3,8 +3,7 @@ defmodule HelloPhoenix.Blog.PostTest do
   import HelloPhoenix.JsonRequest
 
   test "create and read post" do
-    {_, new_post} =
-      HelloPhoenix.Blog.Post.create(%{title: "hello", content: "asdf"})
+    {_, new_post} = HelloPhoenix.Blog.Post.create(%{title: "hello", content: "asdf"})
 
     # |> IO.inspect()
 
@@ -30,5 +29,21 @@ defmodule HelloPhoenix.Blog.PostTest do
       })
 
     assert json_response(conn, 201) |> Map.get("data") != nil
+  end
+
+  test "can create post stats" do
+    # HelloPhoenix.Blog.Post.get_first_title!(%{})
+    # |> IO.inspect()
+
+    load =
+      HelloPhoenix.Blog.PostStats
+      |> Ash.Query.new()
+      |> Ash.Query.load([:id, :post_count_with_content])
+      |> IO.inspect()
+
+    # post_stats = HelloPhoenix.Blog.PostStats.read!(load: )
+
+    # post_stats
+    # |> IO.inspect()
   end
 end

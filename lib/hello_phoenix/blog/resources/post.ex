@@ -10,11 +10,13 @@ defmodule HelloPhoenix.Blog.Post do
     type "post"
 
     routes do
-      base "/posts" 
+      base("/posts")
 
-      get :read 
+      get(:read)
       index :read
-      post :create
+      post(:create)
+
+      index :get_first_title, route: "/title"
     end
   end
 
@@ -30,6 +32,8 @@ defmodule HelloPhoenix.Blog.Post do
     define :update, action: :update
     define :destroy, action: :destroy
     define :get_by_id, args: [:id], action: :by_id
+
+    define :get_first_title
   end
 
   policies do
@@ -51,6 +55,12 @@ defmodule HelloPhoenix.Blog.Post do
       get? true
       filter expr(id == ^arg(:id))
     end
+
+    action :get_first_title, :string do
+      run fn input, context ->
+        {:ok, "asdf"}
+      end
+    end
   end
 
   attributes do
@@ -62,5 +72,7 @@ defmodule HelloPhoenix.Blog.Post do
 
     # can be nil
     attribute :content, :string
+
+    attribute :post_stats_id, :uuid
   end
 end
