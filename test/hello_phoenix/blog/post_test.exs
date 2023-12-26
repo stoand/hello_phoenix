@@ -34,11 +34,12 @@ defmodule HelloPhoenix.Blog.PostTest do
   test "can create post stats" do
     # HelloPhoenix.Blog.Post.get_first_title!(%{})
     # |> IO.inspect()
-    HelloPhoenix.Blog.PostStats.create!(%{})
+    stats = HelloPhoenix.Blog.PostStats.create!(%{})
+    HelloPhoenix.Blog.Post.create!(%{title: "asdf", content: "stuff", post_stats_id2: stats.id})
 
     load =
       HelloPhoenix.Blog.PostStats
-      |> Ash.Query.load([:id, :post_count_with_content, :posts])
+      |> Ash.Query.load([:id, :post_count, :posts])
       |> HelloPhoenix.Blog.read!()
       |> IO.inspect()
 

@@ -8,12 +8,14 @@ defmodule HelloPhoenix.Blog.Post do
 
   json_api do
     type "post"
+    includes [:post_stats]
 
     routes do
       base("/posts")
 
       get(:read)
-      index :read
+      get :by_title, route: "/by_title/:title"
+      index :read, default_fields: [:id, :title, :content, :title_twice]
       post(:create)
 
       index :get_first_title, route: "/title"
@@ -44,6 +46,10 @@ defmodule HelloPhoenix.Blog.Post do
     policy action(:create) do
       authorize_if always()
     end
+
+    policy action(:by_title) do
+      authorize_if always()
+    end
   end
 
   actions do
@@ -56,10 +62,21 @@ defmodule HelloPhoenix.Blog.Post do
       filter expr(id == ^arg(:id))
     end
 
+    read :by_title do
+      argument :title, :string, allow_nil?: false
+      filter(title: arg(:title))
+    end
+
     action :get_first_title, :string do
       run fn input, context ->
         {:ok, "asdf"}
       end
+    end
+  end
+
+  relationships do
+    belongs_to :post_stats, HelloPhoenix.Blog.PostStats do
+      source_attribute :post_stats_id2
     end
   end
 
@@ -76,5 +93,9 @@ defmodule HelloPhoenix.Blog.Post do
     # attribute :post_stats_id, :uuid
 
     attribute :post_stats_id2, :uuid
+  end
+
+  calculations do
+    calculate(:title_twice, :string, concat([:title, :title], "-"))
   end
 end

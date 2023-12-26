@@ -4,17 +4,22 @@ defmodule HelloPhoenix.Blog.PostStats do
     extensions: [AshJsonApi.Resource],
     authorizers: [Ash.Policy.Authorizer]
 
-  import Ash.Filter.TemplateHelpers
+  # import Ash.Filter.TemplateHelpers
 
   json_api do
     type "post_stat"
 
+    includes [:posts]
+
     routes do
       base "/post_stats"
 
-      # index :read, default_fields: [:id]
-      index :read, default_fields: [:id, :post_count_with_content]
+      get :read
+      index :read, default_fields: [:id]
+      # index :read, default_fields: [:id, :post_count]
       post :create
+
+      # relationship :posts, :read, default_fields: [:id, :title, :content]
     end
   end
 
@@ -52,7 +57,7 @@ defmodule HelloPhoenix.Blog.PostStats do
   
 
   aggregates do
-     count :post_count_with_content, :posts
+     count :post_count, :posts
     # do
     #   filter expr(content != nil)
     # end
